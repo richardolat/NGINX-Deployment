@@ -32,48 +32,49 @@ This project demonstrates the process of installing and configuring **NGINX** on
 2. **Launch an EC2 instance** with **Ubuntu 22.04 LTS**.
 3. Ensure that the instance is set up with a **public IP address** for external access.
 
-### Step 2: Connect to Your Instance via SSH
+## Step 2: Connect to Your Instance via SSH
 
-Once your instance is running, connect to it using SSH:
+#### Once your instance is running, connect to it using SSH:
 
-```bash
+``` bash
 ssh ubuntu@<your-server-ip>
 Step 3: Update the System
 Update your system's package index:
+```
 
-bash
-Copy
-Edit
+```
 sudo apt update && sudo apt upgrade -y
-Step 4: Install NGINX
-Install NGINX using the following command:
+```
 
-bash
-Copy
-Edit
+## Step 4: Install NGINX
+
+### Install NGINX using the following command:
+```
 sudo apt install -y nginx
-Start and enable the service to run on boot:
+```
 
-bash
-Copy
-Edit
+### Start and enable the service to run on boot:
+
+```
 sudo systemctl start nginx
 sudo systemctl enable nginx
-Step 5: Configure the Custom HTML Page
-Navigate to the web root directory:
-bash
-Copy
-Edit
+```
+
+## Step 5: Configure the Custom HTML Page
+### Navigate to the web root directory:
+```
 cd /var/www/html
+```
+
 Use Vim to edit the index.html file:
-bash
-Copy
-Edit
+```
 sudo vim index.html
-Add your custom HTML content:
+```
+
+## Add your custom HTML content:
+
+```
 html
-Copy
-Edit
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,63 +86,69 @@ Edit
     <h1>Welcome to DevOps Stage 0 - Richard Olatunde/RichardOlatunde</h1>
 </body>
 </html>
-Save and exit Vim (ESC → :wq → ENTER).
+```
 
-Restart NGINX to apply the changes:
+### Save and exit Vim (ESC → :wq → ENTER).
 
-bash
-Copy
-Edit
+### Restart NGINX to apply the changes:
+
+```
 sudo systemctl restart nginx
-Step 6: Open Port 80 on AWS Security Group
-In the AWS Management Console, go to EC2 → Security Groups.
-Select the security group associated with your instance.
-Add a new inbound rule:
+```
+
+# Step 6: Open Port 80 on AWS Security Group
+
+## In the AWS Management Console, go to EC2 → Security Groups.
+
+### Select the security group associated with your instance.
+### Add a new inbound rule:
+```
 Type: HTTP
 Protocol: TCP
 Port Range: 80
 Source: 0.0.0.0/0 (allows public access)
-Step 7: Configure UFW Firewall
-Enable UFW and allow NGINX traffic:
+```
 
-bash
-Copy
-Edit
+## Step 7: Configure UFW Firewall
+### Enable UFW and allow NGINX traffic:
+```
 sudo ufw allow 'Nginx Full'
 sudo ufw enable
 sudo ufw status
-Step 8: Verify Your Deployment
-Visit your public IP (or domain) in a browser:
+```
+## Step 8: Verify Your Deployment
+### Visit your public IP (or domain) in a browser:
 
-bash
-Copy
-Edit
+```
 http://<your-server-ip>
-You should see the custom welcome page with the message:
+```
+### You should see the custom welcome page with the message:
 
-css
-Copy
-Edit
-Welcome to DevOps Stage 0 - Richard Olatunde/RichardOlatunde
-Project Challenges and Solutions
-1. Firewall Blocking Port 80
-Challenge: The page was not loading due to blocked HTTP (Port 80) traffic.
-Solution: I updated the AWS security group to allow inbound traffic on Port 80 and configured the firewall using UFW.
-2. Permission Issues
-Challenge: I encountered permission errors when editing the index.html file.
-Solution: I used the following command to change ownership of the directory and files:
-bash
-Copy
-Edit
+![Screenshot 2025-01-30 131300](https://github.com/user-attachments/assets/72a2a57b-39df-4674-a0d5-86f837350829)
+
+
+# Project Challenges and Solutions
+
+## 1. Firewall Blocking Port 80
+### Challenge: The page was not loading due to blocked HTTP (Port 80) traffic.
+### Solution: I updated the AWS security group to allow inbound traffic on Port 80 and configured the firewall using UFW.
+
+## 2. Permission Issues
+### Challenge: I encountered permission errors when editing the index.html file.
+### Solution: I used the following command to change ownership of the directory and files:
+
+```
 sudo chown -R $USER:$USER /var/www/html
-Conclusions and Learnings
-NGINX Installation: This project helped me understand the basics of configuring web servers and handling cloud-based deployments.
-Security Configuration: I learned how to manage firewall rules and security groups to ensure that my server is accessible while maintaining security.
-Cloud Computing: This task solidified my understanding of AWS EC2 instances and how to deploy web applications in the cloud.
-License
-MIT License. See the LICENSE file for details.
+```
 
-Acknowledgments
-AWS for the cloud hosting
-NGINX for the powerful web server software
-HNG Internship for the opportunity to learn and grow in the DevOps field
+## Conclusions and Learnings
+### NGINX Installation: This project helped me understand the basics of configuring web servers and handling cloud-based deployments.
+### Security Configuration: I learned how to manage firewall rules and security groups to ensure that my server is accessible while maintaining security.
+### Cloud Computing: This task solidified my understanding of AWS EC2 instances and how to deploy web applications in the cloud.
+License
+### MIT License. See the LICENSE file for details.
+
+## Acknowledgments
+### AWS for the cloud hosting
+### NGINX for the powerful web server software
+### HNG Internship for the opportunity to learn and grow in the DevOps field
